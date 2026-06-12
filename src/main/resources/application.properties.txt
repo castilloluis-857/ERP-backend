@@ -5,8 +5,6 @@
 # -----------------------------------------------------------------------------
 # 1. Base de Datos (MySQL)
 # -----------------------------------------------------------------------------
-# En producción, mueve estas credenciales a variables de entorno:
-#   DB_URL, DB_USERNAME, DB_PASSWORD
 spring.datasource.url=jdbc:mysql://localhost:3306/erp_db?createDatabaseIfNotExist=true&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
 spring.datasource.username=root
 spring.datasource.password=root
@@ -15,20 +13,23 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 # -----------------------------------------------------------------------------
 # 2. JPA / Hibernate
 # -----------------------------------------------------------------------------
-# update: crea/modifica tablas automáticamente sin borrar datos existentes.
-# Para producción, considera usar 'validate' y gestionar el esquema con Flyway/Liquibase.
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=false
 spring.jpa.properties.hibernate.format_sql=true
 spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
-
-# Evita errores al serializar entidades con relaciones lazy no inicializadas
 spring.jackson.serialization.fail-on-empty-beans=false
 
 # -----------------------------------------------------------------------------
 # 3. Servidor
 # -----------------------------------------------------------------------------
 server.port=8080
-
-# Incluye el mensaje de error en las respuestas (útil en desarrollo, deshabilitar en producción)
 server.error.include-message=always
+
+# -----------------------------------------------------------------------------
+# 4. JWT (Clave segura y expiración)
+# -----------------------------------------------------------------------------
+# En producción, mueve estos valores a variables de entorno:
+#   JWT_SECRET, JWT_EXPIRATION
+jwt.secret=miClaveSuperSegura123456789
+jwt.expiration=28800000   # 8 horas en milisegundos
+
